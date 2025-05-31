@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Carrito de Compras</title>
+    <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/heroic-features.css}" rel="stylesheet">
+</head>
+
+<body>
+    <div th:include="usuario/template_usuario.html::header-user"></div>
+
+    <div class="container mt-4">
+        <h2>Carrito de Compras</h2>
+        <div class="row">
+            <div class="col-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Precio</th>
+                            <th>Cantidad</th>
+                            <th>Total</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="carrito : ${carritos}">
+                            <td th:text="${carrito.producto.nombre}"></td>
+                            <td th:text="${carrito.producto.precio}"></td>
+                            <td th:text="${carrito.cantidad}"></td>
+                            <td th:text="${carrito.producto.precio * carrito.cantidad}"></td>
+                            <td>
+                                <a th:href="@{/carrito/eliminar/{id}(id=${carrito.id})}" class="btn btn-danger">Eliminar</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-12 text-right">
+                <h3>Total: $<span th:text="${total}"></span></h3>
+                <a href="/orden" class="btn btn-success">Proceder al Pago</a>
+            </div>
+        </div>
+    </div>
+
+    <div th:include="usuario/template_usuario.html::footer"></div>
+    
+    <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
